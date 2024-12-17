@@ -46,22 +46,23 @@ These weights will be used for prediction or your own fine-tuning.
 Download the  model here:
  
 
-Remember to place them under './model_ckp/lora' and './model_ckp/conformer' respectively
+Remember to place them under `./model_ckp/lora` and `./model_ckp/conformer` respectively
 
 ### set your data
 (only for using dataset)
 Prepare your data for prediction. Ensure that your input sequences are in the required format (FASTA) without annotation. 
-We set an expample prediction dataset, you can see it at './data/data_predict_example.fasta'
-Remember to place your own data under './data'
+We set an expample prediction dataset, you can see it at `./data/data_predict_example.fasta`
+For train and test, see them at `./data/data_train_test_example.fasta`
+Remember to place your own data under `./data`
 
 ### set your prediction config (also for train and test)
 Before running predictions, configure your prediction settings. 
 This includes defining the sequence types, input/output files, and other parameters relevant to your use case. Adjust these parameters according to the dataset and prediction task.
 We also set an expample prediction config.
-For those who wish to use whole architecture, use './hparams/conformer.yaml'
+For those who wish to use whole architecture, use `./hparams/conformer.yaml`
 or 
-For those who wish to only use the lora-fine-tuned esm use './hparams/conformer.yaml'
-If you want to use your own config, place your yaml file under './haprams'
+For those who wish to only use the lora-fine-tuned esm use `./hparams/conformer.yaml`
+If you want to use your own config, place your yaml file under `./haprams`
 
 ## Quick start for prediction
 
@@ -98,7 +99,7 @@ Or for LoRA:
 ```bash
 python predict.py --config_path ./hparams/lora.yaml
 ```
-This will process the sequences from the predict_path, and the prediction results will be saved in the specified output folder (./result/conformer or ./result/lora) as a JSON file. The JSON file will contain the predicted phosphorylation site information, including the predicted label (positive or negative) and prediction score for each site.
+This will process the sequences from the predict_path, and the prediction results will be saved in the specified output folder (`./result/conformer` or `./result/lora`) as a JSON file. The JSON file will contain the predicted phosphorylation site information, including the predicted label (positive:1 or negative:0) and prediction score for each site.
 
 **Example of output JSON format**:
 
@@ -141,11 +142,11 @@ To train the LoRA component, you need to specify the path to your configuration 
 ```bash
 python train.py --config_path ./hparams/lora.yaml
 ```
-This will start the LoRA training process, and the trained model will be saved as a '.pt' file in the './model_ckp/lora directory'. Training logs will be saved in the './log/lora' directory as a '.json' file. The log file will contain basic information such as the training step and validation performance at each step.
+This will start the LoRA training process, and the trained model will be saved as a `.pt` file in the `./model_ckp/lora` directory. Training logs will be saved in the `./log/lora` directory as a `.json` file. The log file will contain basic information such as the training step and validation performance at each step.
 ### Step2 : Train conformer
-After training the LoRA model, the next step is to train the Conformer component. The configuration for Conformer is similar to that of LoRA, and you can refer to the 'conformer.yaml' file located at './hparams/conformer.yam' for guidance.
+After training the LoRA model, the next step is to train the Conformer component. The configuration for Conformer is similar to that of LoRA, and you can refer to the `conformer.yaml` file located at `./hparams/conformer` for guidance.
 
-In the Conformer training configuration, you will need to specify the checkpoint of the trained LoRA model by setting the 'lora_checkpoint parameter'. This will ensure that the Conformer network is initialized with the fine-tuned LoRA model.
+In the Conformer training configuration, you will need to specify the checkpoint of the trained LoRA model by setting the `lora_checkpoint parameter`. This will ensure that the Conformer network is initialized with the fine-tuned LoRA model.
 
 After that
 Run the following command:
@@ -157,7 +158,7 @@ python train.py --config_path ./hparams/lora.yaml
 ## Test Your Model
 
 Once you have trained your LoRA and Conformer models, you can evaluate their performance on a test dataset.
-In the configuration file (e.g., conformer.yaml), you need to specify the test file and checkpoint of the model you want to test.
+In the configuration file, you need to specify the test file and checkpoint of the model you want to test.
 
 
 To run the test on your trained model, use the following command:
@@ -170,7 +171,7 @@ or
 python test.py --config_path ./hparams/conformer.yaml
 ```
 
-After running the test, the evaluation metrics will be saved in the log directory (e.g., ./log/conformer/test_log.json). The test results will include various metrics such as Accuracy, AUC, Precision, Recall, and F1 Score.
+After running the test, the evaluation metrics will be saved in the log directory (e.g. `./log/conformer/test_log.json`). The test results will include various metrics such as Accuracy, AUC, Precision, Recall, and F1 Score.
 
 Here is an example of the output JSON format for the test results:
 ```json

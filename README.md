@@ -43,7 +43,7 @@ This will download the pretrained ESM2 model and alphabet, which you can use for
 ### get model weights
 Download the pretrained model weights for both LoRA and Conformer components.
 These weights will be used for prediction or your own fine-tuning.
-Download the  model here:
+Download the  model here: [](https://drive.google.com/drive/folders/1I7qZw6cGUcVHmPYkt2hZ-tSsSiH-Gjlu?usp=drive_link)
  
 
 Remember to place them under `./model_ckp/lora` and `./model_ckp/conformer` respectively.

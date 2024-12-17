@@ -1,0 +1,37 @@
+#model
+model_name: conformer
+device: cuda:0
+conformer_checkpoint: ./model_ckp/conformer/conformer_S.pt
+lora_checkpoint: ./model_ckp/lora/lora_S.pt
+alpha: 0.5
+
+#data
+train_path: ./data/merged_train_S.fasta
+test_path: ./data/merged_test_S.fasta
+predict_path: ./data/merged_predict_S.fasta
+type: ['S']
+
+#train
+patience_limit: 5
+patience_key: auc
+num_epoch: 10
+batch: 64
+window_size: 15
+split: 0.1
+
+#opt
+lr: 5e-5
+beta1: 0.9
+beta2: 0.999
+weight_decay: 1e-4
+
+#log & save
+val_interval: 500
+threshold: 0.5
+log_path: ./log/conformrer
+log_name: conformer_S
+save_path: ./model_ckp/conformer
+save_name: conformer_S
+predict_result_path: ./result/conformer
+
+

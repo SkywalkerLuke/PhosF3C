@@ -1,0 +1,33 @@
+#model
+model_name: lora
+device: cuda:5
+checkpoint: ./model_ckp/lora/lora_S.pt
+
+#data
+train_path: ./data/merged_train_S.fasta
+test_path: ./data/merged_test_S.fasta
+predict_path: ./data/merged_predict_S.fasta
+type: ['S']
+
+#train
+patience_limit: 5
+patience_key: auc
+num_epoch: 10
+batch: 128
+window_size: 15
+split: 0.1
+
+#opt
+lr: 1e-4
+beta1: 0.9
+beta2: 0.999
+weight_decay: 1e-4
+
+#log & save
+val_interval: 500
+threshold: 0.5
+log_path: ./log/lora
+log_name: lora_S
+save_path: ./model_ckp/lora
+save_name: lora_S
+predict_result_path: ./result/lora

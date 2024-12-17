@@ -38,7 +38,7 @@ model, alphabet = torch.hub.load("facebookresearch/esm:main", "esm2_t33_650M_UR5
 
 This will download the pretrained ESM2 model and alphabet, which you can use for embedding protein sequences.
 
-**NOTE:
+**NOTE**: the esm repo and checkpoint will be saved in `.cache/torch/hub/ `
 
 ### get model weights
 Download the pretrained model weights for both LoRA and Conformer components.
@@ -46,23 +46,21 @@ These weights will be used for prediction or your own fine-tuning.
 Download the  model here:
  
 
-Remember to place them under `./model_ckp/lora` and `./model_ckp/conformer` respectively
+Remember to place them under `./model_ckp/lora` and `./model_ckp/conformer` respectively.
 
 ### set your data
 (only for using dataset)
 Prepare your data for prediction. Ensure that your input sequences are in the required format (FASTA) without annotation. 
-We set an expample prediction dataset, you can see it at `./data/data_predict_example.fasta`
-For train and test, see them at `./data/data_train_test_example.fasta`
-Remember to place your own data under `./data`
+We set an expample prediction dataset, you can see it at `./data/data_predict_example.fasta`.
+For train and test, see them at `./data/data_train_test_example.fasta`.
+Remember to place your own data under `./data`.
 
 ### set your prediction config (also for train and test)
 Before running predictions, configure your prediction settings. 
 This includes defining the sequence types, input/output files, and other parameters relevant to your use case. Adjust these parameters according to the dataset and prediction task.
 We also set an expample prediction config.
-For those who wish to use whole architecture, use `./hparams/conformer.yaml`
-or 
-For those who wish to only use the lora-fine-tuned esm use `./hparams/conformer.yaml`
-If you want to use your own config, place your yaml file under `./haprams`
+For those who wish to use whole architecture, use `./hparams/conformer.yaml`and `./hparams/conformer.yaml` for just fine-tuned ESM2.
+If you want to use your own config, place your yaml file under `./haprams`.
 
 ## Quick start for prediction
 
@@ -79,9 +77,9 @@ If you have a dataset of protein sequences for batch prediction, you can configu
    - `threshold`: The threshold for predicting positive phosphorylation sites. We recommend setting this value to `0.5` (default value).
    - `type`: The type of phosphorylation site you wish to predict (should be list).
    - `device`: Set the device to use for prediction, either `cuda` for GPU or `cpu` for CPU.
-   - `checkpoint`: model weights for lora or conformer. (you can change for yours if you train your own model)
+   - `checkpoint`: model weights for lora or conformer (you can change for yours if you train your own model).
 
-   Example of setiing in a `yaml` configuration file (`conformer.yaml` or `lora.yaml`):
+   Example of setiing in a `yaml` configuration file:
    ```yaml
   predict_path: ./data/
   predict_result_path: ./result/conformer
@@ -121,10 +119,15 @@ This will process the sequences from the predict_path, and the prediction result
 ```
 
 ### use by sequence
-
+To make predictions using individual sequences, refer to the `./example.py` script. You just need to place your protein sequence data into the `data` variable in the script, and the model will handle the rest.
+The configuration settings (such as `predict_path`, `predict_result_path`, `threshold`, `type`, and `device`) are the same as those used for predicting on a dataset, as described below.
+After that, run:
+```bash
+python example.py --config_path ./hparams/lora.yaml
+```
 ## Train your own model
 
-Before you start training your own model, you need to initiate your training configuration in a `yaml` file. This configuration file will specify all the necessary training information, such as batch size, learning rate, and more. Additionally, you can set up validation information (such as validation interval and patience) and specify where to save the logs and model weights.
+Before you start training your own model, you need to initiate your training configuration in  `yaml` file. This configuration file will specify all the necessary training information, such as batch size, learning rate, and more. Additionally, you can set up validation information (such as validation interval and patience) and specify where to save the logs and model weights.
 
 The configuration file should include the following sections:
 
@@ -135,8 +138,7 @@ The configuration file should include the following sections:
 For example, see the `lora.yaml` configuration file located at `./hparams/lora.yaml`. This file provides a template for training both the LoRA and Conformer models.
 
 ### Step 1: Train LoRA
-
-To train the LoRA component, you need to specify the path to your configuration file (`lora.yaml`). After setting up the configuration, run the following command:
+After setting up the configuration, run the following command:
 
 
 ```bash

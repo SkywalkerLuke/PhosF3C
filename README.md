@@ -148,7 +148,7 @@ This will start the LoRA training process, and the trained model will be saved a
 ### Step2 : Train conformer
 After training the LoRA model, the next step is to train the Conformer component. The configuration for Conformer is similar to that of LoRA, and you can refer to the `conformer.yaml` file located at `./hparams/conformer` for guidance.
 
-In the Conformer training configuration, you will need to specify the checkpoint of the trained LoRA model by setting the `lora_checkpoint parameter`. This will ensure that the Conformer network is initialized with the fine-tuned LoRA model.
+In the Conformer training configuration, you will need to specify the checkpoint of the trained LoRA model by setting the `lora_checkpoint` parameter. This will ensure that the Conformer network is initialized with the fine-tuned LoRA model.
 
 After that
 Run the following command:

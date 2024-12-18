@@ -54,7 +54,7 @@ def predict_lora(predict_ds, config):
     # Initialize and load LoRA-ESM model
     lora_esm = Lora_ESM(esm_model)
     lora_esm = lora_esm.to(device)
-    lora_esm.load_state_dict(torch.load(config.checkpoint, map_location={'cpu': device}))
+    lora_esm.load_state_dict(torch.load(config.checkpoint, map_location={'cpu': device},weights_only=True))
 
     # Prepare prediction dataset and dataloader
     dataset = make_predict(**predict_ds, windows=config.window_size)

@@ -51,8 +51,8 @@ def train(model,tok,data_loader,opt,criterion,config):
     device=config.device
     print('\n-------------train------------------\n')
     # Log the number of positive and negative training samples
-    # print(f'positive number : {len(data_loader['p_t'].dataset)}')
-    # print(f'positive number : {len(data_loader['n_t'].dataset)}')
+    print(f'positive number : {len(data_loader["p_t"].dataset)}')
+    print(f'positive number : {len(data_loader["n_t"].dataset)}')
 
     it=0
     logger=[]

@@ -59,12 +59,12 @@ def predict_conformer(predict_ds, config):
     # Load LoRA-ESM model and its checkpoint
     lora_esm = Lora_ESM(esm_model)
     lora_esm = lora_esm.to(device)
-    lora_esm.load_state_dict(torch.load(config.lora_checkpoint, map_location={'cpu': device}),strict=False)
+    lora_esm.load_state_dict(torch.load(config.lora_checkpoint, map_location={'cpu': device},weights_only=True))
 
     # Load Conformer model and its checkpoint
     model = Conformer()
     model = model.to(device)
-    model.load_state_dict(torch.load(config.conformer_checkpoint, map_location={'cpu': device}))
+    model.load_state_dict(torch.load(config.conformer_checkpoint, map_location={'cpu': device},weights_only=True))
 
     # Prepare prediction dataset and dataloader
     dataset = make_predict(**predict_ds, windows=config.window_size)

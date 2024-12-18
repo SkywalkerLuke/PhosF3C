@@ -320,7 +320,7 @@ def train_conformer(train_ds, config):
     lora_esm = lora_esm.to(device)
     
     # Load the checkpoint for LoRA-ESM model
-    lora_esm.load_state_dict(torch.load(config.lora_checkpoint, map_location={'cpu': device}))
+    lora_esm.load_state_dict(torch.load(config.lora_checkpoint, map_location={'cpu': device},weights_only=True))
 
     # Initialize Conformer model
     model = Conformer()
@@ -354,14 +354,14 @@ def test_conformer(test_ds, config):
     lora_esm = lora_esm.to(device)
 
     # Load the checkpoint for LoRA-ESM model
-    lora_esm.load_state_dict(torch.load(config.lora_checkpoint, map_location={'cpu': device}))
+    lora_esm.load_state_dict(torch.load(config.lora_checkpoint, map_location={'cpu': device},weights_only=True))
 
     # Initialize Conformer model
     model = Conformer()
     model = model.to(device)
 
     # Load the Conformer model checkpoint
-    model.load_state_dict(torch.load(config.conformer_checkpoint, map_location={'cpu': device}))
+    model.load_state_dict(torch.load(config.conformer_checkpoint, map_location={'cpu': device},weights_only=True))
 
     # Prepare testing dataset and data loader
     dataset = make_test(**test_ds, windows=config.window_size)

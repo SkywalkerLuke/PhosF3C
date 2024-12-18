@@ -329,7 +329,7 @@ def test_lora(test_ds, config):
     lora_esm = lora_esm.to(device)
 
     # Load the lora checkpoint
-    lora_esm.load_state_dict(torch.load(config.checkpoint, map_location={'cpu': device}))
+    lora_esm.load_state_dict(torch.load(config.checkpoint, map_location={'cpu': device},weights_only=True))
 
     # Prepare testing dataset and data loader
     dataset = make_test(**test_ds, windows=config.window_size)

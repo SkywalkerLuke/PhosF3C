@@ -1,6 +1,6 @@
 #model
 model_name: lora
-device: cuda:5
+device: cuda:0
 checkpoint: ./model_ckp/lora/lora_S.pt
 
 #data
@@ -13,7 +13,7 @@ type: ['S']
 patience_limit: 5
 patience_key: auc
 num_epoch: 10
-batch: 128
+batch: 64
 window_size: 15
 split: 0.1
 
